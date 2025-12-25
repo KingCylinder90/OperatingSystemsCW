@@ -165,7 +165,7 @@ Network testing with iperf3 encountered configuration difficulties. The client a
 
 Initial fio test size was too small for meaningful results.
 
-**Resolution:** Increased test size to 2GB with time-based testing. This ensured the benchmark ran for the full 60-second duration regardless of file size.
+**Resolution:** Increased test size to 1GB with time-based testing
 
 ### 6.11 Critical Reflections
 
