@@ -38,9 +38,9 @@ This week focused on planning the operating system deployment architecture and m
 **Selection Rationale**:
 
 1. **Long Term Support (LTS)**: 
-   5 years of security updates and patches
-   Suitable for production server environments
-   Predictable release cycle for enterprise planning
+   - 5 years of security updates and patches
+   - Suitable for production server environments
+   - Predictable release cycle for enterprise planning
 
 2. **Industry Standard**:
    - Widely deployed in cloud infrastructure (AWS, Azure, GCP)
