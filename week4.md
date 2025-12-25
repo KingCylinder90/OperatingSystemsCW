@@ -311,4 +311,6 @@ Week 5 will implement advanced security controls:
 
 The SSH, firewall, and user management configurations provide the secure foundation for Week 5 security layers.
 
+[WEEK 5: ADVANCED SECURITY AND MONITORING INFASTRASCTURE](week5.md)
+
 [GO BACK TO INDEX PAGE](index.md)
