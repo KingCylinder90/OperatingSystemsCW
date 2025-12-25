@@ -364,3 +364,5 @@ Week 7 will conduct comprehensive security auditing:
 - Security posture assessment
 
 The security controls implemented in Weeks 4 and 5 provide a hardened baseline for the remaining coursework phases.
+
+[GO BACK TO INDEX PAGE](index.md)
