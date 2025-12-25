@@ -8,10 +8,10 @@
 - [WEEK 1: SYSTEM PLANNING AND DISTRIBUTIN SELECTION](#week-1)
 - [WEEK 2: SECURITY PLANNING AND TESTING METHODOLOGY](#week-2)
 - [WEEK 3: APPLICATION SELECTION FOR PERFORMANCE TESTING](#week-3)
-- [Week 4: Initial System Configuration & Security Implementation](#week-4)
-- [Week 5: Advanced Security and Monitoring Infrastructure](#week-5)
-- [Week 6: Performance Evaluation and Analysis](#week-6)
-- [Week 7: Security Audit and System Evaluation](#week-7)
+- [WEEK 4: INITIAL SYSTEM CONFIGURATION AND SECURITY IMPLEMENTATION](#week-4)
+- [WEEK 5: ADVANCED SECURITY AND MONITORING INFASTRASCTURE](#week-5)
+- [WEEK 6: PERFORMANCE EVALUATION AND ANALYSIS](#week-6)
+- [WEEK 7: SECURITY AUDIT AND SYSTEM EVALUATION](#week-7)
 
 ---
 
