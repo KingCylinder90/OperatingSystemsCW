@@ -202,3 +202,6 @@ The `ip addr show` command displays network interface information:
 - Week 2 will focus on developing security baseline and performance testing methodology
 - Begin SSH key based authentication research
 - Plan firewall rules and access control policies
+
+[WEEK 2: SECURITY PLANNING AND TESTING METHODOLOGY](week2.md)
+[GO BACK TO INDEX PAGE](index.md)
