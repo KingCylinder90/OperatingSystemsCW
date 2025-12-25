@@ -117,7 +117,8 @@ This week focused on planning the operating system deployment architecture and m
 
 #### Network Verification
 
-**Connectivity Test** (from workstation):
+**Connectivity Test** (from workstation to server):
+
 ![Ping Testing](images/ping1.png)
 
 ✓ Network connectivity confirmed between workstation and server
