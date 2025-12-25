@@ -121,7 +121,13 @@ This week focused on planning the operating system deployment architecture and m
 
 ![Ping Testing](images/ping1.png)
 
-Network connectivity confirmed between workstation and server
+Network connectivity is confirmed between workstation and server
+
+Now lets try pinging the server while it is down
+
+![Ping Testing2](images/ping2.png)
+
+The packets did not get recieved. This is proof that there is a connection between the client and the server.
 
 ### 1.4 System Specifications (Command Line Evidence)
 
