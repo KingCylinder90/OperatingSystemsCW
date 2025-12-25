@@ -769,10 +769,6 @@ This configuration ensures the system checks for and installs security updates e
 
 **Objective:** Deploy fail2ban to detect and block SSH brute force attempts automatically.
 
-#### Fail2ban Installation
-
-![Fail2ban Install](images/week5-fail2ban-install.png)
-
 Fail2ban was installed using `sudo apt install fail2ban -y`. The package installed successfully along with its dependencies.
 
 **Purpose:** Fail2ban monitors log files for failed authentication attempts. When a threshold is exceeded, it automatically creates firewall rules to block the offending IP address for a specified duration.
