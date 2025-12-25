@@ -8,13 +8,13 @@ This journal documents the implementation and configuration of a secure Linux se
 
 ### Weekly Documentation
 
-- [Week 1: System Planning and Distribution Selection](week1.md)
-- [Week 2: Security Planning and Testing Methodology](week2.md)
-- [Week 3: Application Selection for Performance Testing](week3.md)
-- [Week 4: Initial System Configuration and Security Implementation](week4.md)
-- [Week 5: Advanced Security and Monitoring Infrastructure](week5.md)
-- [Week 6: Performance Evaluation and Analysis](week6.md)
-- [Week 7: Security Audit and System Evaluation](week7.md)
+- [WEEK 1: SYSTEM PLANNING AND DISTRIBUTIN SELECTION](week1.md)
+- [WEEK 2: SECURITY PLANNING AND TESTING METHODOLOGY](week2.md)
+- [WEEK 3: APPLICATION SELECTION FOR PERFORMANCE TESTING](week3.md)
+- [WEEK 4: INITIAL SYSTEM CONFIGURATION AND SECURITY IMPLEMENTATION](week4.md)
+- [WEEK 5: ADVANCED SECURITY AND MONITORING INFASTRASCTURE](week5.md)
+- [WEEK 6: PERFORMANCE EVALUATION AND ANALYSIS](week6.md)
+- [WEEK 7: SECURITY AUDIT AND SYSTEM EVALUATION](week7.md)
 
 ## Project Overview
 
