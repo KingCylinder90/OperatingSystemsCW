@@ -147,35 +147,25 @@ This week focused on planning the operating system deployment architecture and m
 
 ![Disk Space](images/server_df.png)
 
-```bash
-kagan@ubuntu-server:~$ df -h
-Filesystem      Size  Used Avail Use% Mounted on
-tmpfs           195M  1.1M  194M   1% /run
-/dev/sda2        24G  4.2G   19G  18% /
-tmpfs           973M     0  973M   0% /dev/shm
-tmpfs           5.0M     0  5.0M   0% /run/lock
-/dev/sda1       1.1G  6.3M  1.1G   1% /boot/efi
-tmpfs           195M   12K  195M   1% /run/user/1000
-```
-- **Root Partition (/)**: 24GB (18% used)
-- **Boot Partition**: 1.1GB EFI partition
-- **File System**: ext4 (default Ubuntu choice)
+- **Root partition**: 12GB total, 4.6GB used (43%)
+- **Boot partition**: 2.0GB total, 100MB used (6%)
+- System uses LVM (Logical Volume Manager) for flexible storage
+- 6.2GB available space is enough
 
-```bash
-kagan@ubuntu-server:~$ ip addr show
-1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
-    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
-    inet 127.0.0.1/8 scope host lo
-       valid_lft forever preferred_lft forever
-2: enp0s3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
-    link/ether 08:00:27:xx:xx:xx brd ff:ff:ff:ff:ff:ff
-    inet 192.168.56.101/24 brd 192.168.56.255 scope global dynamic enp0s3
-       valid_lft 592sec preferred_lft 592sec
-```
-- **Primary Interface**: enp0s3 (VirtualBox virtual NIC)
-- **IP Address**: 192.168.56.101/24
-- **MAC Address**: 08:00:27:xx:xx:xx (VirtualBox assigned)
-- **State**: UP (active and operational)
+![Showing IP](images/server_ip.png)
+
+The `ip addr show` command displays network interface information:
+
+**Primary Interface (enp0s3):**
+- IP Address: 192.168.56.102/24
+- MAC Address: 08:00:27:f3:e3:93
+- Status: UP and operational
+- DHCP assigned (VirtualBox Host-Only Network)
+- This IP will be used for SSH access from the workstation
+
+**Loopback Interface (lo):**
+- Standard localhost interface (127.0.0.1)
+- Used for internal system communication
 
 #### Linux Mint Workstation Specifications
 
