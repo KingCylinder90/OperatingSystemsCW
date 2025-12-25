@@ -129,35 +129,23 @@ This week focused on planning the operating system deployment architecture and m
 
 ![Ubuntu Server System Info](images/server_uname.png)
 
-- **Kernel**: 6.8.0-48-generic (latest Ubuntu 24.04 LTS kernel)
+- **Kernel**: 6.8.0-90-generic
 - **Architecture**: x86_64 (64-bit)
 - **Kernel Type**: Preemptible dynamic (optimised for responsiveness)
 
 ![LSB](images/server_lsb.png)
 
-```bash
-kagan@ubuntu-server:~$ lsb_release -a
-No LSB modules are available.
-Distributor ID: Ubuntu
-Description:    Ubuntu 24.04.1 LTS
-Release:        24.04
-Codename:       noble
-```
-- **Distribution**: Ubuntu 24.04.1 LTS (Noble Numbat)
+- **Distribution**: Ubuntu 24.04.3 LTS (Noble Numbat)
 - **Support Period**: Until April 2029
 
 ![Memory usage](images/server_free.png)
 
-```bash
-kagan@ubuntu-server:~$ free -h
-               total        used        free      shared  buff/cache   available
-Mem:           1.9Gi       345Mi       1.2Gi       1.0Mi       456Mi       1.5Gi
-Swap:          2.0Gi          0B       2.0Gi
-```
 - **Total RAM**: 2GB (allocated in VirtualBox)
-- **Used Memory**: 345MB (minimal headless footprint)
-- **Available Memory**: 1.5GB (ample for server applications)
+- **Used Memory**: 338MB (minimal headless use)
+- **Available Memory**: 1.6GB (more than enough for server use)
 - **Swap**: 2GB (configured during installation)
+
+![Disk Space](images/server_df.png)
 
 ```bash
 kagan@ubuntu-server:~$ df -h
