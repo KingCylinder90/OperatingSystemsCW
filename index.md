@@ -891,28 +891,28 @@ The monitoring script was executed from the Linux Mint workstation using `./moni
 - Model: AMD Ryzen 9 7945HX with Radeon Graphics
 - Cores: 1
 - Usage: 0.0%
-- Load Average: 0.00, 0.00, 0.00
+- Load Average: 0.06, 0.02, 0.00
 
 **Memory Metrics:**
 - Total: 1.9Gi
-- Used: 324Mi
+- Used: 328Mi
 - Available: 1.6Gi
-- Usage: 16.5%
+- Usage: 16.7%
 - Swap Total: 2.0Gi
 - Swap Used: 0B
 
 **Disk Metrics:**
 - Size: 12G
 - Used: 4.9G
-- Available: 6.0G
-- Usage: 45%
+- Available: 5.8G
+- Usage: 46%
 
 **Network:**
-- Active Interfaces: enp0s3 (192.168.56.102/24), enp0s8 (10.0.2.15/24)
-- Listening Ports: 22 (SSH), 53 (DNS), 323, 631
+- Active Interfaces: enp0s3 (192.168.56.102/24)
+- Listening Ports: 22 (SSH), 53 (DNS), 80, 5201
 
 **Processes:**
-- Total: 108
+- Total: 111
 
 **Top 5 CPU Processes:**
 Shows processes with highest CPU usage
