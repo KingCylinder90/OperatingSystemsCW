@@ -410,19 +410,19 @@ ED25519 was selected over RSA because it offers equivalent security with shorter
 
 #### Public Key Verification
 
-![Public Key Display](images/week4/week4-public-key.png)
+![Public Key Display](images/week4-public-key.png)
 
 The public key was verified using `cat ~/.ssh/id_ed25519.pub`. This displays the complete public key string beginning with `ssh-ed25519`. The public key will be copied to the server to enable authentication.
 
 #### SSH Key Distribution
 
-![SSH Key Copy](images/week4/week4-ssh-copy-id.png)
+![SSH Key Copy](images/week4-ssh-copy-id.png)
 
 The public key was transferred to the Ubuntu Server using `ssh-copy-id kagan@192.168.56.102`. This utility automatically appends the public key to the remote authorized_keys file. The tool confirmed that 1 key was added successfully.
 
 #### SSH Connection Verification
 
-![SSH Connection Test](images/week4/week4-ssh-connected.png)
+![SSH Connection Test](images/week4-ssh-connected.png)
 
 SSH connection was tested using `ssh kagan@192.168.56.102`. The connection was established successfully without password prompt. This confirms key-based authentication is functional.
 
@@ -438,7 +438,7 @@ SSH connection was tested using `ssh kagan@192.168.56.102`. The connection was e
 
 #### Pre-Configuration Analysis
 
-![SSH Config Before](images/week4/week4-ssh-config-before.png)
+![SSH Config Before](images/week4-ssh-config-before.png)
 
 Current settings were documented using `grep` to extract security parameters from `/etc/ssh/sshd_config`:
 
@@ -462,7 +462,7 @@ These changes enforce key-based authentication exclusively. This eliminates pass
 
 #### Post-Configuration Verification
 
-![SSH Config After](images/week4/week4-ssh-config-after.png)
+![SSH Config After](images/week4-ssh-config-after.png)
 
 Configuration was verified using the same `grep` command:
 
@@ -475,7 +475,7 @@ All three security parameters are now uncommented and set to secure values.
 
 #### SSH Service Restart
 
-![SSH Service Status](images/week4/week4-ssh-status.png)
+![SSH Service Status](images/week4-ssh-status.png)
 
 The SSH service was restarted using `sudo systemctl restart ssh`. Status was verified with `sudo systemctl status ssh`.
 
@@ -493,7 +493,7 @@ The service successfully restarted. The existing SSH session remained connected.
 
 #### Initial Firewall State
 
-![Firewall Before](images/week4/week4-firewall-before.png)
+![Firewall Before](images/week4-firewall-before.png)
 
 Firewall status was checked using `sudo ufw status verbose`. Output showed `Status: inactive`. No firewall rules were being enforced.
 
@@ -515,7 +515,7 @@ The firewall was enabled using `sudo ufw enable`. UFW warned about potential SSH
 
 #### Firewall Verification (Numbered)
 
-![Firewall Numbered](images/week4/week4-firewall-numbered.png)
+![Firewall Numbered](images/week4-firewall-numbered.png)
 
 Rules were verified using `sudo ufw status numbered`:
 
@@ -528,7 +528,7 @@ Rule 1 allows SSH from the workstation IP only.
 
 #### Firewall Verification (Verbose)
 
-![Firewall Verbose](images/week4/week4-firewall-verbose.png)
+![Firewall Verbose](images/week4-firewall-verbose.png)
 
 Detailed status checked with `sudo ufw status verbose`:
 
@@ -551,7 +551,7 @@ The default policies deny all incoming traffic except explicitly allowed service
 
 #### Administrative User Creation
 
-![Admin User Creation](images/week4/week4-adduser.png)
+![Admin User Creation](images/week4-adduser.png)
 
 A new user was created using `sudo adduser admin`:
 
@@ -566,7 +566,7 @@ The command automatically created the home directory and copied default configur
 
 #### Sudo Privileges Assignment
 
-![Admin Groups](images/week4/week4-admin-groups.png)
+![Admin Groups](images/week4-admin-groups.png)
 
 The admin user was added to the sudo group using `sudo usermod -aG sudo admin`. Group membership was verified with `groups admin`:
 
@@ -579,7 +579,7 @@ Membership in the sudo group grants administrative privileges.
 
 #### Sudo Access Verification
 
-![Sudo Test](images/week4/week4-admin-sudo-test.png)
+![Sudo Test](images/week4-admin-sudo-test.png)
 
 Sudo was tested by switching to admin (`su - admin`) and running `sudo whoami`. The command returned `root`, confirming:
 
@@ -589,7 +589,7 @@ Sudo was tested by switching to admin (`su - admin`) and running `sudo whoami`. 
 
 ### 4.5 Final Verification
 
-![Final Verification](images/week4/week4-final-verification.png)
+![Final Verification](images/week4-final-verification.png)
 
 All configurations were verified:
 
