@@ -803,7 +803,7 @@ One jail is active. The sshd jail monitors SSH authentication attempts.
 
 #### SSH Jail Status
 
-![Fail2ban SSH Jail](images/week5-fail2ban-sshd-status.png)
+![Fail2ban SSH Jail](images/week5-faul2ban-sshd-status.png)
 
 The SSH jail was examined using `sudo fail2ban-client status sshd`:
 
@@ -826,7 +826,9 @@ No failed attempts or banned IPs at this time. The jail is active and will autom
 
 #### Script Execution
 
-![Security Baseline Output](images/week5-security-baseline-output.png)
+![Security Baseline Output1](images/week5-security-baseline-output-1.png)
+
+![Security Baseline Output2](images/week5-security-baseline-output-2.png)
 
 The security baseline script was executed using `sudo ./security-baseline.sh`. The script performs automated security checks across all implemented controls.
 
@@ -873,7 +875,9 @@ All security controls are operational and properly configured. The automated ver
 
 #### Monitoring Script Execution
 
-![Monitoring Script Output](images/week5-monitoring-script-output.png)
+![Monitoring Script Output1](images/week5-monitor1.png)
+
+![Monitoring Script Output2](images/week5-monitor2.png)
 
 The monitoring script was executed from the Linux Mint workstation using `./monitor-server.sh 192.168.56.102`. The script connects via SSH and collects comprehensive system metrics.
 
