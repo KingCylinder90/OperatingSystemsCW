@@ -1115,7 +1115,7 @@ stress-ng successfully demonstrated CPU capacity and system behaviour under comp
 Disk I/O testing was conducted using `fio --name=test --size=2G --rw=randwrite --bs=4k --numjobs=1 --runtime=60 --time_based --group_reporting`.
 
 **Test Parameters:**
-- Test size: 2GB
+- Test size: 1GB
 - Operation: Random write
 - Block size: 4KB
 - Duration: 60 seconds
