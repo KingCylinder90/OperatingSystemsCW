@@ -11,6 +11,8 @@ Week 7 focused on comprehensive security auditing to verify the effectiveness of
 
 ![Lynis Security Audit](images/week7-lynis-summary.png)
 
+![Lynis Security Audit](images/week7-lynis-summary2.png)
+
 Lynis security audit was executed using `sudo lynis audit system`. Lynis is an open source security auditing tool that performs hundreds of checks across various security categories.
 
 **Audit Scope:**
