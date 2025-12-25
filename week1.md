@@ -204,4 +204,5 @@ The `ip addr show` command displays network interface information:
 - Plan firewall rules and access control policies
 
 [WEEK 2: SECURITY PLANNING AND TESTING METHODOLOGY](week2.md)
+
 [GO BACK TO INDEX PAGE](index.md)
