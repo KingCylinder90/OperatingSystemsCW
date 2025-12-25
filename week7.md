@@ -335,4 +335,4 @@ A secure, functional Linux server with:
 - Performance monitoring
 - Comprehensive documentation
 
-The system demonstrates understanding of security principles and practical implementation capability. All planned security controls from Week 2 have been implemented and verified through Week 7 auditing.
+The system demonstrates understanding of security principles and practical implementation capability. All my planned security controls from Week 2 have been implemented and verified through Week 7 auditing.
