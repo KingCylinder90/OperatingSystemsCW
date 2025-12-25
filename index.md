@@ -129,23 +129,39 @@ This week focused on planning the operating system deployment architecture and m
 
 ![Ubuntu Server System Info](images/server_uname.png)
 
-- **Kernel**: 6.8.0-90-generic
-- **Architecture**: x86_64 (64-bit)
-- **Kernel Type**: Preemptible dynamic (optimised for responsiveness)
+The `uname -a` command displays kernel and system information:
+
+**Kernel Version**: 6.8.0-39-generic
+- Latest stable kernel for Ubuntu 24.04 LTS
+- `PREEMPT_DYNAMIC` indicates kernel optimised for responsiveness
+
+**Architecture**: x86_64 (64-bit system)
+- Compatible with modern server applications
+- Supports large memory addressing
 
 ![LSB](images/server_lsb.png)
 
-- **Distribution**: Ubuntu 24.04.3 LTS (Noble Numbat)
-- **Support Period**: Until April 2029
+The `lsb_release -a` command shows distribution details:
+
+**Distribution**: Ubuntu 24.04.3 LTS (Noble Numbat)
+- Long-Term Support release with 5 years of security updates (until April 2029)
+- Codename: Noble
+- Latest point release (24.04.3) includes recent security patches and bug fixes
 
 ![Memory usage](images/server_free.png)
 
 The `free -h` command shows memory usage:
 
-- **Total RAM**: 2GB (allocated in VirtualBox)
-- **Used Memory**: 338MB (minimal headless use)
-- **Available Memory**: 1.6GB (more than enough for server use)
-- **Swap**: 2GB (configured during installation)
+**RAM:**
+- Total: 1.9GB (2GB allocated in VirtualBox)
+- Used: 338MB (18% utilisation)
+- Available: 1.6GB
+- Minimal footprint due to headless configuration (no desktop environment)
+
+**Swap:**
+- Total: 2.0GB configured
+- Used: 0B (no swapping occurring)
+- System has sufficient RAM, swap provides safety margin
 
 ![Disk Space](images/server_df.png)
 
