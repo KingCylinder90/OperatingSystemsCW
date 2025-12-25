@@ -94,3 +94,5 @@ sudo apt install stress-ng nginx fio iperf3 htop iotop iftop nethogs sysstat -y
 ### 3.6 Preparation for Week 6
 
 All applications have been identified with clear justifications, installation procedures are documented, monitoring strategies are established, and the testing methodology is designed. This preparation ensures Week 6 performance testing can proceed efficiently with consistent and reliable measurements.
+
+[GO BACK TO INDEX PAGE](index.md)
