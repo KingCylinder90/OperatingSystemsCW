@@ -15,7 +15,7 @@
 
 ---
 
-## Week 1: System Planning and Distribution Selection {#week-1}
+## WEEK 1: SYSTEM PLANNING AND DISTRIBUTIN SELECTION {#week-1}
 
 ### Overview
 This week focused on planning the operating system deployment architecture and making justified technical decisions for the Linux server infrastructure.
@@ -220,9 +220,9 @@ The `ip addr show` command displays network interface information:
 - Begin SSH key based authentication research
 - Plan firewall rules and access control policies
 
-###################################################################################################################################################################################################################
+#############################################################
 
-## Week 2: Security Planning and Testing Methodology {#week-2}
+## WEEK 2: SECURITY PLANNING AND TESTING METHODOLOGY {#week-2}
 
 ### Overview
 This week focused on developing a security strategy and establishing methodologies for performance testing. The planning defined objectives for implementing security controls in Weeks 4 and 5, and outlined the approach for performance evaluation in Week 6.
@@ -286,7 +286,7 @@ Research was completed on SSH hardening best practices, Linux firewall configura
 
 #################################################################################################################################################################################################################################################
 
-## WEEK 3: APPLICATION SELECTION FOR PERFORMANCE TESTING  {#week-2}
+## WEEK 3: APPLICATION SELECTION FOR PERFORMANCE TESTING  {#week-3}
 
 ### Overview
 This week focused on selecting appropriate applications for comprehensive performance evaluation in Week 6. The selection prioritised applications representing diverse workload types to thoroughly assess system behaviour under various resource utilisation patterns.
