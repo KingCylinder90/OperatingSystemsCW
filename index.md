@@ -396,7 +396,7 @@ Week 4 focused on implementing core security controls. This included SSH hardeni
 
 #### SSH Key Pair Generation
 
-![SSH Key Generation](images/week4/week4-ssh-keygen.png)
+![SSH Key Generation](images/week4-ssh-keygen.png)
 
 SSH keys were generated on the Linux Mint workstation using the ED25519 algorithm. The command `ssh-keygen -t ed25519 -C "kagan@workstation"` generated a public/private key pair.
 
