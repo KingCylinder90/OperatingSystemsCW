@@ -18,7 +18,7 @@ This journal documents the implementation and configuration of a secure Linux se
 
 ## Project Overview
 
-**Architecture**: (Ubuntu Server 24.04 LTS + Linux Mint 22)
+**Architecture**: (Ubuntu Server 24.04 LTS + Linux Mint 22)  
 **Network**: VirtualBox Host Only (192.168.56.0/24)  
 **Administration**: Remote SSH management  
 **Security**: Multi layered defence with SSH hardening, UFW firewall, AppArmor, fail2ban  
