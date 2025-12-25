@@ -140,12 +140,16 @@ This week focused on planning the operating system deployment architecture and m
 
 ![Memory usage](images/server_free.png)
 
+The `free -h` command shows memory usage:
+
 - **Total RAM**: 2GB (allocated in VirtualBox)
 - **Used Memory**: 338MB (minimal headless use)
 - **Available Memory**: 1.6GB (more than enough for server use)
 - **Swap**: 2GB (configured during installation)
 
 ![Disk Space](images/server_df.png)
+
+The `df -h` command shows disk space usage:
 
 - **Root partition**: 12GB total, 4.6GB used (43%)
 - **Boot partition**: 2.0GB total, 100MB used (6%)
