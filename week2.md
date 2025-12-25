@@ -60,4 +60,6 @@ Research was completed on SSH hardening best practices, Linux firewall configura
 - Week 4: Implement SSH hardening and firewall configuration
 - Week 5: Deploy advanced security controls (AppArmor, fail2ban, automatic updates)
 
+[WEEK 3: APPLICATION SELECTION FOR PERFORMANCE TESTING](week3.md)
+
 [GO BACK TO INDEX PAGE](index.md)
