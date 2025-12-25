@@ -121,7 +121,7 @@ This week focused on planning the operating system deployment architecture and m
 
 ![Ping Testing](images/ping1.png)
 
-✓ Network connectivity confirmed between workstation and server
+Network connectivity confirmed between workstation and server
 
 ### 1.4 System Specifications (Command Line Evidence)
 
