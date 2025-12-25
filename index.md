@@ -195,37 +195,13 @@ The `ip addr show` command displays network interface information:
 
 #### Linux Mint Workstation Specifications
 
-**Screenshot**: [Workstation terminal showing system info]
-![Linux Mint Workstation System Info](images/week1-workstation-specs.png)
+![mint info](images/mint_uname.png)
 
-```bash
-kagan@workstation:~$ uname -a
-Linux workstation 6.8.0-48-generic #48-Ubuntu SMP PREEMPT_DYNAMIC Fri Sep 27 14:04:36 UTC 2024 x86_64 x86_64 x86_64 GNU/Linux
-```
+![LSB mint](images/mint_lsb.png)
 
-```bash
-kagan@workstation:~$ lsb_release -a
-No LSB modules are available.
-Distributor ID: Linuxmint
-Description:    Linux Mint 22 Wilma
-Release:        22
-Codename:       wilma
-```
+![Mint Memory](images/mint_free.png)
 
-```bash
-kagan@workstation:~$ free -h
-               total        used        free      shared  buff/cache   available
-Mem:           3.8Gi       892Mi       2.1Gi       45Mi       867Mi       2.7Gi
-Swap:          2.0Gi          0B       2.0Gi
-```
-
-```bash
-kagan@workstation:~$ ip addr show enp0s3
-2: enp0s3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
-    link/ether 08:00:27:yy:yy:yy brd ff:ff:ff:ff:ff:ff
-    inet 192.168.56.102/24 brd 192.168.56.255 scope global dynamic noprefixroute enp0s3
-       valid_lft 571sec preferred_lft 571sec
-```
+![Showing IP](images/mint_ip.png)
 
 ### 1.5 Key Learning Points - Week 1
 
