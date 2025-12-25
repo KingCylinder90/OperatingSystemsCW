@@ -22,7 +22,7 @@ This week focused on planning the operating system deployment architecture and m
 
 ### 1.1 System Architecture Diagram
 
-
+[System Architecture](images/architecture-diagram.png)
 
 **Architecture Explanation**:
 - Two virtual machines running in VirtualBox on Windows 11 host
