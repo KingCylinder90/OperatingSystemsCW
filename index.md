@@ -5,9 +5,9 @@
 ---
 
 ## Table of Contents
-- [Week 1: System Planning and Distribution Selection](#week-1)
-- [Week 2: Security Planning and Testing Methodology](#week-2)
-- [Week 3: Application Selection for Performance Testing](#week-3)
+- [WEEK 1: SYSTEM PLANNING AND DISTRIBUTIN SELECTION](#week-1)
+- [WEEK 2: SECURITY PLANNING AND TESTING METHODOLOGY](#week-2)
+- [WEEK 3: APPLICATION SELECTION FOR PERFORMANCE TESTING](#week-3)
 - [Week 4: Initial System Configuration & Security Implementation](#week-4)
 - [Week 5: Advanced Security and Monitoring Infrastructure](#week-5)
 - [Week 6: Performance Evaluation and Analysis](#week-6)
@@ -371,7 +371,7 @@ The testing will produce quantitative data including CPU utilisation percentages
 
 ### 3.5 Installation Documentation
 
-All applications were installed during Week 5 setup via SSH using the APT package manager. The installation included stress-ng, nginx, fio, iperf3, and htop, along with additional monitoring tools including iotop for I/O monitoring by process, iftop for real-time network bandwidth monitoring, nethogs for network usage per process, and sysstat for performance monitoring tools including iostat and mpstat.
+All applications will be installed through SSH using the APT package manager. The installation will include stress-ng, nginx, fio, iperf3, and htop, along with additional monitoring tools including iotop for I/O monitoring by process, iftop for real-time network bandwidth monitoring, nethogs for network usage per process, and sysstat for performance monitoring tools including iostat and mpstat.
 
 Installation command used:
 ```bash
