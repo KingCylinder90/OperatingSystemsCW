@@ -117,18 +117,9 @@ This week focused on planning the operating system deployment architecture and m
 
 #### Network Verification
 
-**Screenshot**: [Network topology confirmation]
-![Network Configuration](images/week1-network-config.png)
-
 **Connectivity Test** (from workstation):
-```bash
-kagan@workstation:~$ ping -c 4 192.168.56.101
-PING 192.168.56.101 (192.168.56.101) 56(84) bytes of data.
-64 bytes from 192.168.56.101: icmp_seq=1 ttl=64 time=0.234 ms
-64 bytes from 192.168.56.101: icmp_seq=2 ttl=64 time=0.312 ms
-64 bytes from 192.168.56.101: icmp_seq=3 ttl=64 time=0.289 ms
-64 bytes from 192.168.56.101: icmp_seq=4 ttl=64 time=0.267 ms
-```
+![Ping Testing](images/ping1.png)
+
 ✓ Network connectivity confirmed between workstation and server
 
 ### 1.4 System Specifications (Command Line Evidence)
