@@ -127,16 +127,13 @@ This week focused on planning the operating system deployment architecture and m
 
 #### Ubuntu Server Specifications
 
-**Screenshot**: [Server terminal showing system info commands]
-![Ubuntu Server System Info](images/week1-server-specs.png)
+![Ubuntu Server System Info](images/server_uname.png)
 
-```bash
-kagan@ubuntu-server:~$ uname -a
-Linux ubuntu-server 6.8.0-48-generic #48-Ubuntu SMP PREEMPT_DYNAMIC Fri Sep 27 14:04:36 UTC 2024 x86_64 x86_64 x86_64 GNU/Linux
-```
 - **Kernel**: 6.8.0-48-generic (latest Ubuntu 24.04 LTS kernel)
 - **Architecture**: x86_64 (64-bit)
 - **Kernel Type**: Preemptible dynamic (optimised for responsiveness)
+
+![LSB](images/server_lsb.png)
 
 ```bash
 kagan@ubuntu-server:~$ lsb_release -a
@@ -148,6 +145,8 @@ Codename:       noble
 ```
 - **Distribution**: Ubuntu 24.04.1 LTS (Noble Numbat)
 - **Support Period**: Until April 2029
+
+![Memory usage](images/server_free.png)
 
 ```bash
 kagan@ubuntu-server:~$ free -h
