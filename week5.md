@@ -1,311 +1,366 @@
-## WEEK 4: INITIAL SYSTEM CONFIGURATION AND SECURITY IMPLEMENTATION {#week-4}
+## WEEK 5: ADVANCED SECURITY AND MONITORING INFRASTRUCTURE {#week-5}
 
 ### Overview
-Week 4 focused on implementing core security controls. This included SSH hardening through key-based authentication, firewall configuration, and user privilege management. All configurations were implemented remotely via SSH from the Linux Mint workstation.
+Week 5 focused on implementing advanced security controls building upon the Week 4 foundation. This included verifying AppArmor mandatory access control, configuring automatic security updates, deploying fail2ban intrusion detection, and creating monitoring scripts for ongoing security verification.
 
-### 4.1 SSH Key Generation and Configuration
+### 5.1 AppArmor Mandatory Access Control
 
-**Objective:** Replace password-based SSH authentication with key-based authentication.
+**Objective:** Verify AppArmor is enabled and enforcing security policies on the system.
 
-#### SSH Key Pair Generation
+#### AppArmor Status Verification
 
-![SSH Key Generation](images/week4-ssh-keygen.png)
+![AppArmor Status](images/week5-apparmor-status.png)
 
-SSH keys were generated on the Linux Mint workstation using the ED25519 algorithm. The command `ssh-keygen -t ed25519 -C "kagan@workstation"` generated a public/private key pair.
+AppArmor status was checked using `sudo aa-status | head -20`. The output shows:
 
-**Key Generation Details:**
-- Private key: `/home/kagan/.ssh/id_ed25519`
-- Public key: `/home/kagan/.ssh/id_ed25519.pub`
-- No passphrase configured
-- Key fingerprint: SHA256:GwckWBxL/GlwzrWUnf3U0pQZ55wM1coR1ahY80WmegaU
+**AppArmor Summary:**
+- AppArmor module is loaded
+- 54 profiles loaded
+- 54 profiles in enforce mode
+- 0 profiles in complain mode
+- 8 processes with profiles defined
+- 8 processes in enforce mode
 
-ED25519 was selected over RSA because it offers equivalent security with shorter keys. This results in faster authentication and reduced memory usage.
+AppArmor is active and enforcing security policies. The 54 loaded profiles provide mandatory access control for critical system services. All profiles are in enforce mode, meaning violations are blocked rather than just logged.
 
-#### Public Key Verification
+**Profile Examples:**
+- `/snap/snapd/...` (Snap package isolation)
+- `/usr/bin/...` (System binary confinement)
+- Various system services
 
-![Public Key Display](images/week4-public-key.png)
+#### AppArmor Enabled Check
 
-The public key was verified using `cat ~/.ssh/id_ed25519.pub`. This displays the complete public key string beginning with `ssh-ed25519`. The public key will be copied to the server to enable authentication.
+![AppArmor Enabled](images/week5-apparmor-enabled.png)
 
-#### SSH Key Distribution
+AppArmor was verified as enabled using `sudo aa-enabled && echo "AppArmor is enabled" || echo "AppArmor is disabled"`. The output confirms "AppArmor is enabled".
 
-![SSH Key Copy](images/week4-ssh-copy-id.png)
+**Security Benefit:** AppArmor provides mandatory access control that limits what processes can do. Even if a service is compromised, AppArmor profiles restrict file access, network connections, and system capabilities. This containment reduces the impact of successful exploits.
 
-The public key was transferred to the Ubuntu Server using `ssh-copy-id kagan@192.168.56.102`. This utility automatically appends the public key to the remote authorized_keys file. The tool confirmed that 1 key was added successfully.
+### 5.2 Automatic Security Updates
 
-#### SSH Connection Verification
+**Objective:** Configure automatic installation of security patches to ensure the system remains protected against known vulnerabilities.
 
-![SSH Connection Test](images/week4-ssh-connected.png)
+#### Unattended Upgrades Installation
 
-SSH connection was tested using `ssh kagan@192.168.56.102`. The connection was established successfully without password prompt. This confirms key-based authentication is functional.
+![Unattended Upgrades Install](images/week5-unattended-upgrades-install.png)
 
-**System Status:**
-- Authentication: Public key (ED25519)
-- System load: 0.0 (idle)
-- Memory usage: 10%
-- Disk usage: 40.3%
+The unattended-upgrades package was installed using `sudo apt install unattended-upgrades -y`. The installation completed successfully.
 
-### 4.2 SSH Server Hardening
+**Package Purpose:** The unattended-upgrades package automatically downloads and installs security updates without manual intervention. This ensures critical patches are applied promptly, reducing the window of vulnerability.
 
-**Objective:** Disable insecure authentication methods and restrict SSH access.
+#### Configuration Verification
 
-#### Pre-Configuration Analysis
+![Auto Upgrades Config](images/week5-auto-upgrades-config.png)
 
-![SSH Config Before](images/week4-ssh-config-before.png)
+Automatic update configuration was verified using `cat /etc/apt/apt.conf.d/20auto-upgrades`:
 
-Current settings were documented using `grep` to extract security parameters from `/etc/ssh/sshd_config`:
+**Configuration Settings:**
+```
+APT::Periodic::Update-Package-Lists "1";
+APT::Periodic::Unattended-Upgrade "1";
+```
 
-**Initial Configuration:**
-- `PermitRootLogin prohibit-password`: Root can login with keys
-- `PubkeyAuthentication yes`: Enabled (commented, using default)
-- `PasswordAuthentication yes`: Enabled (commented, using default)
+**Configuration Analysis:**
+- `Update-Package-Lists "1"`: Package lists updated daily
+- `Unattended-Upgrade "1"`: Security updates installed automatically daily
 
-The commented lines indicate default values are in effect. Password authentication is enabled, which allows brute force attacks.
+This configuration ensures the system checks for and installs security updates every 24 hours. Only security updates are installed automatically. Regular package updates still require manual approval.
 
-#### Configuration Modification
+### 5.3 Fail2ban Intrusion Detection
 
-The SSH configuration file was edited using `sudo nano /etc/ssh/sshd_config`:
+**Objective:** Deploy fail2ban to detect and block SSH brute force attempts automatically.
 
-**Changes Made:**
-1. `PermitRootLogin no`: Completely disables root login
-2. `PubkeyAuthentication yes`: Explicitly enables public key authentication
-3. `PasswordAuthentication no`: Disables password authentication
+Fail2ban was installed using `sudo apt install fail2ban -y`. The package installed successfully along with its dependencies.
 
-These changes enforce key-based authentication exclusively. This eliminates password guessing attacks completely.
+**Purpose:** Fail2ban monitors log files for failed authentication attempts. When a threshold is exceeded, it automatically creates firewall rules to block the offending IP address for a specified duration.
 
-#### Post-Configuration Verification
+#### Fail2ban Service Status
 
-![SSH Config After](images/week4-ssh-config-after.png)
+![Fail2ban Status](images/week5-fail2ban-status.png)
 
-Configuration was verified using the same `grep` command:
+Service status was verified using `sudo systemctl status fail2ban`:
 
-**Updated Configuration:**
-- `PermitRootLogin no`: Root login disabled
-- `PubkeyAuthentication yes`: Public key authentication enabled
-- `PasswordAuthentication no`: Password authentication disabled
-
-All three security parameters are now uncommented and set to secure values.
-
-#### SSH Service Restart
-
-![SSH Service Status](images/week4-ssh-status.png)
-
-The SSH service was restarted using `sudo systemctl restart ssh`. Status was verified with `sudo systemctl status ssh`.
-
-**Service Status:**
+**Service Details:**
 - Status: Active (running)
-- Process ID: 1976
-- Memory usage: 1.2M
-- No errors reported
+- Process ID: 3847
+- Memory usage: 13.7M
+- Loaded configuration: `/etc/fail2ban/jail.conf`
 
-The service successfully restarted. The existing SSH session remained connected.
+The service is operational and monitoring for intrusion attempts.
 
-### 4.3 Firewall Configuration
+#### Fail2ban Client Status
 
-**Objective:** Restrict SSH access to the workstation IP address only.
+![Fail2ban Client Status](images/week5-fail2ban-client-status.png)
 
-#### Initial Firewall State
+Overall fail2ban status was checked using `sudo fail2ban-client status`:
 
-![Firewall Before](images/week4-firewall-before.png)
-
-Firewall status was checked using `sudo ufw status verbose`. Output showed `Status: inactive`. No firewall rules were being enforced.
-
-#### Firewall Rule Creation
-
-The firewall was configured to allow SSH from the workstation only:
-```bash
-sudo ufw allow from 192.168.56.101 to any port 22
+**Active Jails:**
+```
+Number of jail: 1
+Jail list: sshd
 ```
 
-This rule:
-- Permits TCP from 192.168.56.101
-- To port 22 (SSH)
-- Denies all other SSH attempts
+One jail is active. The sshd jail monitors SSH authentication attempts.
 
-#### Firewall Activation
+#### SSH Jail Status
 
-The firewall was enabled using `sudo ufw enable`. UFW warned about potential SSH disruption. After confirming, the firewall became active.
+![Fail2ban SSH Jail](images/week5-faul2ban-sshd-status.png)
 
-#### Firewall Verification (Numbered)
+The SSH jail was examined using `sudo fail2ban-client status sshd`:
 
-![Firewall Numbered](images/week4-firewall-numbered.png)
+**SSH Jail Configuration:**
+- Filter: sshd (monitors SSH logs)
+- Currently failed: 0
+- Total failed: 0
+- Currently banned: 0
+- Total banned: 0
 
-Rules were verified using `sudo ufw status numbered`:
+**Configuration Details:**
+- Actions: `iptables-multiport` (creates firewall rules)
+- Log path: `/var/log/auth.log` (SSH authentication log)
 
-**Active Rules:**
-```
-[1] 22    ALLOW IN    192.168.56.101
-```
+No failed attempts or banned IPs at this time. The jail is active and will automatically ban IPs after 5 failed authentication attempts within 10 minutes. Banned IPs are blocked for 10 minutes by default.
 
-Rule 1 allows SSH from the workstation IP only.
+### 5.4 Security Baseline Verification Script
 
-#### Firewall Verification (Verbose)
+**Objective:** Create an automated script to verify all security configurations from Weeks 4 and 5.
 
-![Firewall Verbose](images/week4-firewall-verbose.png)
+#### Script Execution
 
-Detailed status checked with `sudo ufw status verbose`:
+![Security Baseline Output1](images/week5-security-baseline-output-1.png)
 
-**Policy Summary:**
-- Status: active
-- Logging: on (low)
-- Default incoming: deny
-- Default outgoing: allow
+![Security Baseline Output2](images/week5-security-baseline-output-2.png)
 
-**Active Rule:**
-- Port: 22
-- Action: ALLOW IN
-- From: 192.168.56.101
+The security baseline script was executed using `sudo ./security-baseline.sh`. The script performs automated security checks across all implemented controls.
 
-The default policies deny all incoming traffic except explicitly allowed services. SSH is restricted to the workstation IP address.
+**Script Results Summary:**
 
-### 4.4 User Privilege Management
+**SSH Security Checks:**
+- ✓ SSH service is running
+- ✓ Root login is disabled
+- ✓ Password authentication is disabled
+- ✓ Public key authentication is enabled
 
-**Objective:** Create a non-root administrative user with sudo privileges.
+**Firewall Checks:**
+- ✓ UFW firewall is installed
+- ✓ UFW firewall is active
+- ✓ SSH firewall rules configured
 
-#### Administrative User Creation
+**User Management Checks:**
+- ✓ Admin user exists
+- ✓ Admin has sudo privileges
 
-![Admin User Creation](images/week4-adduser.png)
+**AppArmor Checks:**
+- ✓ AppArmor is installed
+- ✓ AppArmor is enabled
 
-A new user was created using `sudo adduser admin`:
+**Automatic Updates Checks:**
+- ✓ Unattended-upgrades installed
 
-**User Details:**
-- Username: admin
-- UID: 1001
-- GID: 1001
-- Home directory: `/home/admin`
-- Password: Set
+**Fail2ban Checks:**
+- ✓ Fail2ban is installed
+- ✓ Fail2ban service is running
+- ✓ Fail2ban SSH jail is active
 
-The command automatically created the home directory and copied default configuration files.
+**Summary:**
+- Passed: 15 checks
+- Failed: 0 checks
+- Security Compliance: 100%
+- Status: EXCELLENT
 
-#### Sudo Privileges Assignment
+All security controls are operational and properly configured. The automated verification confirms the security baseline is maintained.
 
-![Admin Groups](images/week4-admin-groups.png)
+### 5.5 Remote Monitoring Script
 
-The admin user was added to the sudo group using `sudo usermod -aG sudo admin`. Group membership was verified with `groups admin`:
+**Objective:** Create a monitoring script that runs from the workstation to collect server metrics remotely.
 
-**Admin Groups:**
-- admin (primary)
-- sudo (grants privileges)
-- users
+#### Monitoring Script Execution
 
-Membership in the sudo group grants administrative privileges.
+![Monitoring Script Output1](images/week5-monitor1.png)
 
-#### Sudo Access Verification
+![Monitoring Script Output2](images/week5-monitor2.png)
 
-![Sudo Test](images/week4-admin-sudo-test.png)
+The monitoring script was executed from the Linux Mint workstation using `./monitor-server.sh 192.168.56.102`. The script connects via SSH and collects comprehensive system metrics.
 
-Sudo was tested by switching to admin (`su - admin`) and running `sudo whoami`. The command returned `root`, confirming:
+**System Information:**
+- Hostname: ubuntu-server
+- Kernel: 6.8.0-90-generic
+- OS: Ubuntu 24.04.3 LTS
+- Uptime: up 1 hour, 38 minutes
 
-1. Admin user can authenticate with sudo
-2. Sudo elevates privileges correctly
-3. Commands execute as root
+**CPU Metrics:**
+- Model: AMD Ryzen 9 7945HX with Radeon Graphics
+- Cores: 1
+- Usage: 0.0%
+- Load Average: 0.06, 0.02, 0.00
 
-### 4.5 Final Verification
+**Memory Metrics:**
+- Total: 1.9Gi
+- Used: 328Mi
+- Available: 1.6Gi
+- Usage: 16.7%
+- Swap Total: 2.0Gi
+- Swap Used: 0B
 
-![Final Verification](images/week4-final-verification.png)
+**Disk Metrics:**
+- Size: 12G
+- Used: 4.9G
+- Available: 5.8G
+- Usage: 46%
 
-All configurations were verified:
+**Network:**
+- Active Interfaces: enp0s3 (192.168.56.102/24)
+- Listening Ports: 22 (SSH), 53 (DNS), 80, 5201
 
-**SSH Service:**
-```
-Active: active (running)
-```
+**Processes:**
+- Total: 111
 
-SSH is operational with security changes applied.
+**Top 5 CPU Processes:**
+Shows processes with highest CPU usage
 
-**Firewall:**
-```
-22    ALLOW    192.168.56.101
-```
+**Top 5 Memory Processes:**
+Shows processes with highest memory usage
 
-UFW is active with SSH restricted to workstation.
+**Security Services:**
+- SSH: Active
+- UFW: Active
+- Fail2ban: Active
+- AppArmor: Enabled
 
-**Admin User:**
-```
-uid=1001(admin) groups=1001(admin),27(sudo),100(users)
-```
+All security services are operational. System performance is healthy with low resource utilisation. The script successfully demonstrates remote monitoring capabilities via SSH.
 
-Admin user exists with correct privileges.
-
-### 4.6 Security Summary
+### 5.6 Security Configuration Summary
 
 **Implemented Controls:**
 
-**SSH Hardening:**
-- Key-based authentication implemented
-- Password authentication disabled
-- Root login disabled
+**Mandatory Access Control:**
+- AppArmor enabled with 54 profiles enforcing
+- All profiles in enforce mode
+- 8 processes confined
 
-**Network Security:**
-- UFW firewall enabled
-- Default deny policy active
-- SSH restricted to workstation IP
+**Patch Management:**
+- Unattended-upgrades configured
+- Daily security update checks
+- Automatic installation enabled
 
-**Access Control:**
-- Non-root admin user created
-- Sudo privileges assigned
-- Principle of least privilege applied
+**Intrusion Detection:**
+- Fail2ban installed and active
+- SSH jail monitoring authentication attempts
+- Automatic IP banning configured
 
-### 4.7 Key Learning Points
+**Monitoring Infrastructure:**
+- Security baseline verification script deployed
+- Remote monitoring script operational
+- Automated security status checking
 
-**SSH Security:**
-- Public key cryptography implementation
-- ED25519 algorithm advantages
-- SSH configuration parameters
-- Authentication testing procedures
+### 5.7 Key Learning Points
 
-**Firewall Management:**
-- UFW syntax and rule creation
-- Default policy configuration
-- Source-based access control
-- Rule verification methods
+**AppArmor Understanding:**
+- Mandatory access control concepts
+- Enforce mode vs complain mode
+- Profile management
+- Security policy verification
 
-**User Management:**
-- Linux user creation procedures
-- Group-based privileges
-- Sudo configuration
-- Access verification
+**Automated Patch Management:**
+- Unattended-upgrades configuration
+- Security update automation
+- Update scheduling
+- Configuration file locations
 
-### 4.8 Challenges Encountered
+**Intrusion Detection Systems:**
+- Fail2ban architecture and operation
+- Jail configuration
+- Log monitoring mechanisms
+- Automatic response actions
 
-**SSH Configuration Testing:**
+**Security Automation:**
+- Bash script development
+- SSH remote execution
+- Automated verification procedures
+- System monitoring techniques
 
-Concern about server lockout after disabling passwords.
+### 5.8 Challenges Encountered
 
-**Solution:** Verified key authentication worked before modifying config. Kept existing session open whilst testing new connection.
+**Fail2ban Installation:**
 
-**Firewall Rule Ordering:**
+Initial network connectivity issues prevented package installation.
 
-Understanding UFW rule processing.
+**Solution:** Temporarily switched VM network adapter to NAT mode for internet access. Installed all required packages. Switched back to Host-Only network for secure operation.
 
-**Solution:** Created allow rule before enabling firewall. Verified rule was active before activation.
+**Remote Monitoring Permissions:**
 
-### 4.9 Critical Reflections
+Monitoring script required sudo permissions for UFW and AppArmor status checks.
 
-**SSH Key Selection:**
+**Solution:** Configured specific sudo permissions for monitoring commands. This allows status checks without granting full sudo access to remote commands.
 
-ED25519 provides equivalent security to 3072-bit RSA with only 256-bit keys. This results in faster authentication and better performance. For production environments, ED25519 is increasingly recommended.
+**Script File Permissions:**
 
-**Firewall Scope:**
+Scripts copied from shared folder had incorrect ownership and permissions.
 
-The firewall restricts SSH to a single IP address. In production, this might be too restrictive. A more scalable approach would use IP ranges or VPN access. For this coursework, the specific IP restriction demonstrates granular access control.
+**Solution:** Used `sudo chown` to fix ownership and `chmod 755` to set correct execute permissions.
 
-**Privilege Management:**
+### 5.9 Critical Reflections
 
-The separate admin user follows security best practices. This enables accountability, selective privilege elevation, and easier revocation. However, the admin user has full sudo access. Production environments would use more granular sudo rules.
+**AppArmor vs SELinux:**
 
-**Security vs Usability:**
+Ubuntu uses AppArmor by default rather than SELinux. AppArmor is simpler to configure and uses path-based policies. SELinux provides more granular control but has a steeper learning curve. For this coursework, AppArmor provides adequate mandatory access control with easier management.
 
-Disabling passwords completely eliminates brute force attacks. However, lost private keys result in complete access loss. Production environments often retain passwords with fail2ban protection. Complete disablement maximises security for this coursework.
+**Automatic Update Risks:**
 
-### 4.10 Next Steps
+Automatic security updates improve security posture but carry minimal risk. Updates occasionally break configurations or introduce bugs. However, the security benefit of rapid patching outweighs this risk. Production environments often use staged rollouts with testing before full deployment.
 
-Week 5 will implement advanced security controls:
+**Fail2ban Effectiveness:**
 
-**Planned Controls:**
-- AppArmor mandatory access control
-- Automatic security updates
-- Fail2ban intrusion detection
-- Security monitoring scripts
+Fail2ban effectively blocks brute force attacks but is reactive rather than proactive. It only acts after failed attempts occur. The Week 4 configuration (key-based auth only) is more effective as it prevents password attacks entirely. Fail2ban provides an additional layer of defence in case SSH configuration is weakened.
 
-The SSH, firewall, and user management configurations provide the secure foundation for Week 5 security layers.
+**Monitoring Script Security:**
+
+The monitoring script uses SSH with key-based authentication for security. All data is transmitted encrypted. However, the script requires some sudo access on the remote system. This is necessary for comprehensive monitoring but increases the privileges available to the workstation.
+
+### 5.10 Script Functionality
+
+**Security Baseline Script:**
+
+The script performs 15 automated checks covering SSH configuration, firewall status, user management, AppArmor, automatic updates, and fail2ban. It uses colour-coded output for readability and calculates compliance percentage. This enables rapid security posture verification without manual checking.
+
+**Monitoring Script:**
+
+The script connects remotely via SSH and collects system metrics including CPU usage, memory consumption, disk utilisation, network status, running processes, and security service status. It demonstrates professional remote administration practices. The script could be extended for alerting or logging functionality.
+
+### 5.11 Integration with Week 4
+
+Week 5 controls build upon the Week 4 foundation:
+
+**Layered Security:**
+- Week 4: SSH hardening prevents unauthorised access
+- Week 5: Fail2ban adds additional protection
+- Week 4: Firewall restricts network access
+- Week 5: AppArmor restricts compromised process capabilities
+
+**Defence in Depth:**
+
+Multiple security layers provide redundancy. If one control fails, others remain effective. For example:
+- SSH password authentication disabled (Week 4)
+- Fail2ban monitors for brute force attempts (Week 5)
+- Firewall restricts source IPs (Week 4)
+- AppArmor limits SSH daemon capabilities (Week 5)
+
+### 5.12 Next Steps
+
+Week 6 will evaluate system performance and assess security control impact:
+
+**Performance Testing:**
+- Baseline system metrics
+- CPU, memory, disk, network testing
+- Application workload evaluation
+- Security overhead assessment
+
+Week 7 will conduct comprehensive security auditing:
+
+**Security Audit:**
+- Lynis security scanning
+- Nmap port scanning
+- Configuration compliance verification
+- Security posture assessment
+
+The security controls implemented in Weeks 4 and 5 provide a hardened baseline for the remaining coursework phases.
