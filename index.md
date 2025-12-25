@@ -137,7 +137,7 @@ The packets did not get recieved. This is proof that there is a connection betwe
 
 The `uname -a` command displays kernel and system information:
 
-**Kernel Version**: 6.8.0-39-generic
+**Kernel Version**: 6.8.0-90-generic
 - Latest stable kernel for Ubuntu 24.04 LTS
 - `PREEMPT_DYNAMIC` indicates kernel optimised for responsiveness
 
